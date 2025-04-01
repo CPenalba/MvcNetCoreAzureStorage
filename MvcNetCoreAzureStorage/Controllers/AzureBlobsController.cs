@@ -65,5 +65,17 @@ namespace MvcNetCoreAzureStorage.Controllers
             await this.service.DeleteBlobAsync(containername, blobname);
             return RedirectToAction("ListBlobs", new { containername = containername });
         }
+
+        public async Task<IActionResult> GetBlobImage(string containername, string blobname)
+        {
+            Stream blobStream = await this.service.GetBlobStreamAsync(containername, blobname);
+
+            if (blobStream == null)
+            {
+                return NotFound();
+            }
+
+            return File(blobStream, "image/jpeg");
+        }
     }
 }

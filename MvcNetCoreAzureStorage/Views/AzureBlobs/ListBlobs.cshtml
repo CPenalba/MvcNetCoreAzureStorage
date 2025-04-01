@@ -35,7 +35,8 @@
 					@Html.DisplayFor(modelItem => item.Contenedor)
 				</td>
 				<td>
-					<img src="@item.Url" style="width:70px; height:70px" />
+					<img src="@Url.Action("GetBlobImage", "AzureBlobs", new { containername = item.Contenedor, blobname = item.Nombre })"
+						 alt="@item.Nombre" width="200" />
 				</td>
 
 			</tr>

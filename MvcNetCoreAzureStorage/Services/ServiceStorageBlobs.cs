@@ -66,6 +66,23 @@ namespace MvcNetCoreAzureStorage.Services
         {
             BlobContainerClient containerClient = this.client.GetBlobContainerClient(containerName);
             await containerClient.UploadBlobAsync(blobName, stream);
-        } 
+        }
+
+        public async Task<Stream> GetBlobStreamAsync(string containerName, string blobName)
+        {
+            BlobContainerClient containerClient = this.client.GetBlobContainerClient(containerName);
+            BlobClient blobClient = containerClient.GetBlobClient(blobName);
+
+            if (!await blobClient.ExistsAsync())
+            {
+                return null;
+            }
+
+            MemoryStream memoryStream = new MemoryStream();
+            await blobClient.DownloadToAsync(memoryStream);
+            memoryStream.Position = 0; 
+
+            return memoryStream;
+        }
     }
 }

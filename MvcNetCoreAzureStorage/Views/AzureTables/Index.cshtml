@@ -1,0 +1,58 @@
+﻿@model List<Cliente>
+
+<h1>Tabla de clientes</h1>
+
+<a asp-action="Create" asp-controller="AzureTables"
+   class="btn btn-success">
+    Create New
+</a>
+
+<a asp-action="ClientesEmpresa" asp-controller="AzureTables"
+   class="btn btn-secondary">
+    Clientes Empresa
+</a>
+
+@if(Model != null)
+{
+    <table class="table table-warning">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Edad</th>
+                <th>Salario</th>
+                <th>Empresa</th>
+                <th>Eliminar</th>
+                <th>Detalles</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(Cliente cli in Model)
+            {
+                <tr>
+                    <td>@cli.Nombre</td>
+                    <td>@cli.Edad</td>
+                    <td>@cli.Salario</td>
+                    <td>@cli.Empresa</td>
+                    <td>
+                        <a asp-action="Delete" 
+                        asp-controller="AzureTables"
+                        asp-route-partitionkey="@cli.PartitionKey"
+                        asp-route-rowkey="@cli.RowKey"
+                           class="btn btn-danger">
+                            Eliminar
+                        </a>
+                    </td>
+                    <td>
+                        <a asp-action="Details"
+                           asp-controller="AzureTables"
+                           asp-route-partitionkey="@cli.PartitionKey"
+                           asp-route-rowkey="@cli.RowKey"
+                           class="btn btn-info">
+                            Detalles
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
