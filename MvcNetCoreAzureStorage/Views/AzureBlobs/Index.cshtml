@@ -16,6 +16,14 @@
             asp-route-containername="@containerName" class="btn btn-danger">
             Delete container
             </a>
+            <a asp-action="UploadBlob" asp-controller="AzureBlobs"
+            asp-route-containername="@containerName" class="btn btn-warning">
+            Upload Blob
+            </a>
+            <a asp-action="ListBlobs" asp-controller="AzureBlobs"
+            asp-route-containername="@containerName" class="btn btn-info">
+            List Blobs
+            </a>
         </li>
     }
 </ul>
